@@ -1,0 +1,16 @@
+# SIFT test configuration
+# Lines starting with # are comments
+
+subset_size_millions=1
+qsize=10000
+vecdim=128
+
+# HNSW parameters (used when HNSW is enabled)
+efConstruction=40
+M=16
+
+# Data paths
+path_query=/mnt/ceph/heejin/bigann/bigann_query.bvecs
+path_data=/mnt/ceph/heejin/bigann/bigann_base.bvecs
+path_gt_base=/mnt/ceph/heejin/bigann/gnd/idx_%dM.ivecs
+
