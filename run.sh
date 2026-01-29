@@ -1,6 +1,7 @@
 #!/bin/bash
-BUILD_DIR=/home/heejin5178/hnsw-AMX/hnswlib/build
-OUTPUT_DIR=/home/heejin5178/hnsw-AMX/hnswlib/outputs
+root_dir=`pwd`
+BUILD_DIR=${root_dir}/build
+OUTPUT_DIR=${root_dir}/outputs
 DURATION_SECONDS=30  # Set to 0 for fixed query count mode, >0 for QPS benchmark mode
 
 # Core Pinning 설정 (ON/OFF 쉽게 전환)
@@ -22,11 +23,11 @@ thread_counts=(
   #2
   #4
   #8
-  16
+  #16
   #32
-  64
-  128
-  256
+  #64
+  #128
+  #256
 )
 
 # Batch sizes to test
@@ -103,7 +104,7 @@ done
 echo "Done (non-AMX)!"
 
 ### FOR AMX
-cd /home/heejin5178/hnsw-AMX/hnswlib
+cd ${root_dir}
 rm -rf ${BUILD_DIR}
 mkdir ${BUILD_DIR}
 cd ${BUILD_DIR}
@@ -114,9 +115,9 @@ amx_compile_types=(
   #"amx"
   #"amx_bf16"
   #"amx_mt"
-  #"amx_bf16_mt"              # 7 tiles (Tile 0-6), single accumulator
+  "amx_bf16_mt"              # 7 tiles (Tile 0-6), single accumulator
   #"amx_mt_hnsw"             # HierarchicalNSW with AMX (FP32 storage)
-  "amx_bf16_mt_hnsw"        # HierarchicalNSW with AMX (BF16 storage)
+  #"amx_bf16_mt_hnsw"        # HierarchicalNSW with AMX (BF16 storage)
   #"amx_bf16_dual"           # 8 tiles (Tile 0-7), dual accumulator, single-threaded
   #"amx_bf16_dual_mt"        # 8 tiles (Tile 0-7), dual accumulator, multi-threaded
   #"amx_bf16_minimal"        # 3 tiles (Tile 0,1,2), single-threaded
